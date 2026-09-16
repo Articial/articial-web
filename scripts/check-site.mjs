@@ -7,6 +7,9 @@ const required = [
   "dist/favicon.svg",
   "dist/assets/whole-system.png",
   "dist/assets/patch-hero.webp",
+  "dist/assets/rove-hero.webp",
+  "dist/assets/rove-ready.webp",
+  "dist/assets/rove-inspection.webp",
 ];
 
 await Promise.all(required.map((file) => access(file)));
@@ -30,4 +33,5 @@ if (js.includes("UTUH /")) throw new Error("Product sites still use nested UTUH 
 if (!js.includes("A focused operational product")) throw new Error("Missing restrained product-to-UTUH relationship");
 if (!js.includes("utuh-hero-v2") || !css.includes(".utuh-metrics")) throw new Error("Missing redesigned UTUH homepage structure");
 if (!js.includes("patch-hero-v2") || !css.includes(".patch-partnership")) throw new Error("Missing redesigned PATCH homepage structure");
+if (!js.includes("rove-hero-v2") || !css.includes(".rove-process-grid")) throw new Error("Missing redesigned ROVE homepage structure");
 console.log("Site checks passed.");

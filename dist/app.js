@@ -373,6 +373,61 @@ function patchPage() {
     </main>`;
 }
 
+function rovePage() {
+  const capabilities = site.capabilities.map(([title, text], index) => `<article><span>0${index + 1}</span><h3>${title}</h3><p>${text}</p></article>`).join("");
+  return `
+    <main id="main" class="rove-main">
+      <section class="rove-hero-v2">
+        <img src="/assets/rove-hero.webp" alt="A rental depot operator overseeing organized equipment ready for dispatch" />
+        <div class="rove-hero-shade"></div>
+        <div class="rove-hero-copy reveal">
+          <div class="rove-pills"><span>Equipment</span><span>Vehicles</span><span>Production gear</span></div>
+          <h1>Every asset ready.<br />Every movement <em>accounted for.</em></h1>
+          <p>${site.description}</p>
+          <div class="rove-actions"><a class="rove-button lime" href="#lifecycle">See the lifecycle ${arrow()}</a><a class="rove-button text" href="#fit">Is ROVE for us?</a></div>
+        </div>
+        <aside class="rove-live-card reveal delay-1"><p>Asset 0247</p><strong>Ready now</strong><span><i></i> Inspected · complete</span></aside>
+      </section>
+
+      <section class="rove-status-strip" aria-label="Rental asset lifecycle"><span><i></i>Available</span><span><i></i>Reserved</span><span><i></i>Checked out</span><span><i></i>Returned</span><span><i></i>Inspected</span></section>
+
+      <section class="rove-about section-pad" id="system">
+        <figure><img src="/assets/rove-ready.webp" alt="Organized rental equipment and cases ready for booking" /><figcaption>Ready means checked, complete, and findable.</figcaption></figure>
+        <div><p class="section-label">About ROVE</p><h2>Run the whole asset journey—not just the booking calendar.</h2><p>ROVE gives rental operators one reliable view of availability, reservations, custody, due dates, returns, condition, and readiness.</p><a class="rove-button dark" href="#lifecycle">Follow an asset ${arrow()}</a></div>
+      </section>
+
+      <section class="rove-services section-pad">
+        <div class="rove-section-head"><div><p class="section-label">The operating system</p><h2>Everything your fleet needs.</h2></div><p>One connected lifecycle, with every handoff visible.</p></div>
+        <div class="rove-service-grid">
+          <article class="service-photo ready"><span>01 · Availability</span><h3>Know what is actually ready.</h3><p>Location, condition, completeness, and the next commitment in one view.</p></article>
+          <article class="service-solid"><span>02 · Reservation</span><h3>Promise with confidence.</h3><p>Prevent conflicts and hold the exact assets required for the job.</p><div class="mini-calendar"><b>12</b><i></i><i></i><i></i><i></i><i></i><i></i></div></article>
+          <article class="service-dark"><span>03 · Custody</span><h3>Always know who has it.</h3><p>Checkout, deposit, due date, reminders, and responsibility stay connected.</p><div class="custody-line"><i></i><span>Depot</span><b>→</b><i></i><span>Customer</span></div></article>
+          <article class="service-photo inspect"><span>04 · Return</span><h3>Inspect before “available.”</h3><p>Capture condition, missing parts, damage, and the work needed next.</p></article>
+        </div>
+      </section>
+
+      <section class="rove-process section-pad" id="lifecycle">
+        <div class="rove-section-head"><div><p class="section-label">The lifecycle</p><h2>From shelf to customer—and safely back again.</h2></div><p>No asset disappears between statuses.</p></div>
+        <div class="rove-process-grid">
+          <article class="process-tall"><span>Step 01</span><h3>Confirm availability</h3><p>See the exact item, location, condition, and commitments before promising it.</p><img src="/assets/rove-ready.webp" alt="Rental equipment arranged on ready shelves" /></article>
+          <article><span>Step 02</span><h3>Reserve the asset</h3><p>Assign dates, customer, price, deposit, and preparation requirements.</p><div class="process-radar"><i></i><i></i><i></i></div></article>
+          <article><span>Step 03</span><h3>Check out with custody clear</h3><p>Record who received what, when it is due, and what went with it.</p><div class="process-ticket">OUT <b>0247</b></div></article>
+          <article class="process-wide"><div><span>Step 04</span><h3>Return, inspect, and make ready</h3><p>Do not release the asset until condition and completeness are verified.</p></div><img src="/assets/rove-inspection.webp" alt="An operator inspecting a returned rental equipment case" /></article>
+        </div>
+      </section>
+
+      <section class="rove-capabilities section-pad" id="how-it-works">
+        <div><p class="section-label">Built into ROVE</p><h2>Operational truth at asset level.</h2></div>
+        <div class="rove-capability-list">${capabilities}</div>
+      </section>
+
+      <section class="rove-fit section-pad" id="fit">
+        <p class="section-label">Built for</p><h2>${site.fit}</h2>
+        <a class="rove-button dark" href="mailto:hello@articial.app?subject=ROVE%20workflow%20fit">Talk through your fleet ${arrow()}</a>
+      </section>
+    </main>`;
+}
+
 function productPage() {
   const capabilities = site.capabilities.map(([title, text], index) => `<article><span>0${index + 1}</span><h3>${title}</h3><p>${text}</p></article>`).join("");
   return `
@@ -398,7 +453,7 @@ function productPage() {
 
 document.title = `${site.name} — ${site.title}`;
 document.querySelector('meta[name="description"]').content = site.description;
-document.getElementById("app").innerHTML = `${nav()}${siteKey === "articial" ? articialPage() : siteKey === "utuh" ? utuhPage() : siteKey === "patch" ? patchPage() : productPage()}${footer()}`;
+document.getElementById("app").innerHTML = `${nav()}${siteKey === "articial" ? articialPage() : siteKey === "utuh" ? utuhPage() : siteKey === "patch" ? patchPage() : siteKey === "rove" ? rovePage() : productPage()}${footer()}`;
 
 const header = document.querySelector(".site-header");
 const menuButton = document.querySelector(".menu-toggle");
