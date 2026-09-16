@@ -558,6 +558,71 @@ function nettPage() {
     </main>`;
 }
 
+function intakePage() {
+  const capabilities = site.capabilities.map(([title, text], index) => `<article><span>0${index + 1}</span><h3>${title}</h3><p>${text}</p></article>`).join("");
+  return `
+    <main id="main" class="intake-main">
+      <section class="intake-hero-v2">
+        <div class="intake-hero-copy reveal">
+          <p class="kicker">Conversational order infrastructure</p>
+          <h1>Orders arrive messy.<br /><span>INTAKE makes them ready.</span></h1>
+          <p>Turn customer messages, voice notes, photos, PDFs, and forms into structured draft orders an operator can verify.</p>
+          <div class="intake-actions"><a class="intake-button navy" href="#system">See the order flow ${arrow()}</a><a class="intake-button clear" href="#fit">Built for distributors</a></div>
+        </div>
+        <div class="intake-device-stage reveal delay-1">
+          <figure><img src="/assets/intake-phone.webp" alt="A hand holding a smartphone against a bright blue sky" /></figure>
+          <div class="intake-screen-ui" aria-label="Example structured order draft">
+            <span>Draft order</span><strong>PT Sumber Jaya</strong>
+            <div><i></i><p><b>4 dus</b> · SKU matched</p></div>
+            <div><i></i><p><b>2 dus</b> · needs review</p></div>
+            <button type="button">Review draft</button>
+          </div>
+          <aside class="intake-float chat"><span>Customer message</span><p>“Kirim 4 dus yang biasa, tambah 2 yang besar.”</p></aside>
+          <aside class="intake-float status"><span>Order status</span><strong>Draft ready</strong><p><i></i> 1 ambiguity flagged</p></aside>
+        </div>
+      </section>
+
+      <section class="intake-statement section-pad"><p class="section-label">The idea</p><h2>Every order starts somewhere.<br /><span>INTAKE structures it.</span></h2></section>
+
+      <section class="intake-system section-pad" id="system">
+        <div class="intake-system-copy"><p class="section-label">Built for the real order desk</p><h2>Keep the conversation. Remove the retyping.</h2><p>INTAKE sits between familiar customer channels and the systems your team already uses. It prepares a structured draft, shows uncertainty, and waits for a person to confirm.</p></div>
+        <div class="intake-order-card">
+          <header><div><span>Incoming order</span><strong>ORD · DRAFT 0284</strong></div><em>Needs review</em></header>
+          <div class="intake-customer"><span>Customer</span><strong>PT Sumber Jaya</strong><small>Matched from customer master</small></div>
+          <div class="intake-lines"><article><span>01</span><div><strong>Mineral Water 600ml</strong><small>SKU · MWA-600-24</small></div><b>4 dus</b><em>Matched</em></article><article><span>02</span><div><strong>“Yang besar”</strong><small>2 possible catalog matches</small></div><b>2 dus</b><em class="review">Review</em></article></div>
+          <footer><span>Delivery · Thursday</span><button type="button">Confirm order ${arrow()}</button></footer>
+        </div>
+      </section>
+
+      <section class="intake-inputs section-pad">
+        <div class="intake-section-head"><p class="section-label">Unstructured in</p><h2>Let customers order the way they already do.</h2><p>Start with the channels and files already present in the workflow.</p></div>
+        <div class="intake-input-grid">
+          <article><span>01</span><div class="input-glyph message">•••</div><h3>Text message</h3><p>Paste or receive repeat orders written in the customer’s own shorthand.</p></article>
+          <article><span>02</span><div class="input-glyph voice"><i></i><i></i><i></i><i></i><i></i></div><h3>Voice note</h3><p>Turn spoken quantities, product names, and delivery notes into reviewable fields.</p></article>
+          <article><span>03</span><div class="input-glyph document">PDF</div><h3>Photo or PDF</h3><p>Extract order lines without asking the admin to retype the document.</p></article>
+          <article><span>04</span><div class="input-glyph form"><i></i><i></i><i></i></div><h3>Form or sheet</h3><p>Bring structured inputs into the same confirmation queue.</p></article>
+        </div>
+      </section>
+
+      <section class="intake-flow section-pad" id="how-it-works">
+        <div class="intake-section-head"><p class="section-label">The workflow</p><h2>From conversation to confirmed order.</h2></div>
+        <div class="intake-flow-line">${site.flow.map((step, index) => `<article><span>0${index + 1}</span><h3>${step}</h3><i></i></article>`).join("")}</div>
+      </section>
+
+      <section class="intake-review section-pad">
+        <div><p class="section-label">Human confirmation</p><h2>Ambiguity stays visible.</h2><p>When a product, quantity, price, or delivery detail is uncertain, INTAKE flags the exact field instead of silently guessing.</p><a class="intake-button navy" href="#fit">See who it fits ${arrow()}</a></div>
+        <div class="intake-review-panel"><span>Review queue</span><strong>“Tambah 2 yang besar”</strong><p>Which catalog item did the customer mean?</p><button type="button"><i></i> Mineral Water 1.5L · 12</button><button type="button"><i></i> Mineral Water 1.5L · 6</button><small>Operator confirmation required</small></div>
+      </section>
+
+      <section class="intake-capabilities section-pad">
+        <div><p class="section-label">Built into INTAKE</p><h2>Structured enough to move forward.</h2></div>
+        <div class="intake-capability-list">${capabilities}</div>
+      </section>
+
+      <section class="intake-fit section-pad" id="fit"><p class="section-label">Built for</p><h2>${site.fit}</h2><a class="intake-button white" href="mailto:hello@articial.app?subject=INTAKE%20order%20workflow">Talk through your order desk ${arrow()}</a></section>
+    </main>`;
+}
+
 function productPage() {
   const capabilities = site.capabilities.map(([title, text], index) => `<article><span>0${index + 1}</span><h3>${title}</h3><p>${text}</p></article>`).join("");
   return `
@@ -583,7 +648,7 @@ function productPage() {
 
 document.title = `${site.name} — ${site.title}`;
 document.querySelector('meta[name="description"]').content = site.description;
-document.getElementById("app").innerHTML = `${nav()}${siteKey === "articial" ? articialPage() : siteKey === "utuh" ? utuhPage() : siteKey === "patch" ? patchPage() : siteKey === "rove" ? rovePage() : siteKey === "proof" ? proofPage() : siteKey === "nett" ? nettPage() : productPage()}${footer()}`;
+document.getElementById("app").innerHTML = `${nav()}${siteKey === "articial" ? articialPage() : siteKey === "utuh" ? utuhPage() : siteKey === "patch" ? patchPage() : siteKey === "rove" ? rovePage() : siteKey === "proof" ? proofPage() : siteKey === "nett" ? nettPage() : siteKey === "intake" ? intakePage() : productPage()}${footer()}`;
 
 const header = document.querySelector(".site-header");
 const menuButton = document.querySelector(".menu-toggle");
