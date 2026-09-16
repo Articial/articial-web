@@ -495,6 +495,69 @@ function proofPage() {
     </main>`;
 }
 
+function nettPage() {
+  const capabilities = site.capabilities.map(([title, text], index) => `<article><span>0${index + 1}</span><h3>${title}</h3><p>${text}</p></article>`).join("");
+  return `
+    <main id="main" class="nett-main">
+      <div class="nett-shell">
+        <section class="nett-hero-v2">
+          <div class="nett-hero-copy reveal">
+            <p class="kicker">Commerce profitability intelligence</p>
+            <h1>Your next best profit <span>decision</span><br /><em>starts here.</em></h1>
+            <p>NETT connects revenue to the costs that actually shape margin—so every pricing, campaign, and channel decision starts with the whole picture.</p>
+            <a class="nett-button yellow" href="#system">See the profit system ${arrow()}</a>
+          </div>
+          <div class="nett-hero-grid">
+            <article class="nett-strategy reveal delay-1">
+              <p class="section-label">The operating principle</p>
+              <h2>Revenue is loud.<br /><span>Margin is truth.</span></h2>
+              <p>Bring marketplace fees, COGS, logistics, ads, affiliates, packaging, and returns into the same decision.</p>
+              <a class="nett-button white" href="#how-it-works">How NETT works ${arrow()}</a>
+              <div class="nett-sample"><div><span>Sample order</span><strong>Rp100k sale</strong></div><div><span>Contribution</span><strong>Rp16k NETT</strong></div></div>
+            </article>
+            <figure class="nett-portrait reveal delay-2">
+              <img src="/assets/nett-operator.webp" alt="An Indonesian commerce operations leader" />
+              <figcaption><span><b>16%</b> contribution margin</span><span><b>−18k</b> ads + affiliate</span></figcaption>
+            </figure>
+          </div>
+        </section>
+
+        <section class="nett-source-strip" aria-label="Commerce data sources"><span>Marketplace</span><i></i><span>Ads</span><i></i><span>Affiliate</span><i></i><span>Logistics</span><i></i><span>Returns</span><i></i><span>COGS</span></section>
+
+        <section class="nett-principles section-pad" id="system">
+          <div class="nett-section-head"><p class="section-label">The NETT philosophy</p><h2>Revenue visible.<br /><span>Profit understood.</span></h2><p>Not another vanity dashboard. A decision system built around the economics of each order.</p></div>
+          <div class="nett-principle-grid">
+            <article><span>01</span><h3>Map every cost</h3><div class="nett-icon magnify"><i></i></div><p>Put direct and hidden costs against the sale they belong to.</p></article>
+            <article><span>02</span><h3>See order economics</h3><div class="nett-icon nodes"><i></i><i></i><i></i><i></i></div><p>Compare contribution by SKU, channel, campaign, and order.</p></article>
+            <article><span>03</span><h3>Model the decision</h3><div class="nett-icon bars"><i></i><i></i><i></i></div><p>Test price, commission, ad spend, and cost assumptions before acting.</p></article>
+          </div>
+        </section>
+
+        <section class="nett-economics section-pad" id="how-it-works">
+          <div class="nett-economics-head"><div><p class="section-label">One sale, fully explained</p><h2>From gross revenue to what remains.</h2></div><p>A clean contribution bridge makes leakage visible and decisions specific.</p></div>
+          <div class="nett-waterfall" aria-label="Example contribution margin calculation">
+            <article class="positive"><span>Revenue</span><strong>100,000</strong><i style="--h:100%"></i></article>
+            <article><span>COGS</span><strong>−41,000</strong><i style="--h:41%"></i></article>
+            <article><span>Fees + logistics</span><strong>−25,000</strong><i style="--h:25%"></i></article>
+            <article><span>Ads + affiliate</span><strong>−18,000</strong><i style="--h:18%"></i></article>
+            <article class="result"><span>NETT</span><strong>16,000</strong><i style="--h:16%"></i></article>
+          </div>
+          <p class="nett-example-note">Illustrative order economics—not a customer performance claim.</p>
+        </section>
+
+        <section class="nett-capabilities section-pad">
+          <div><p class="section-label">Built into NETT</p><h2>Growth-focused profit intelligence.</h2></div>
+          <div class="nett-capability-list">${capabilities}</div>
+        </section>
+
+        <section class="nett-fit section-pad" id="fit">
+          <p class="section-label">Built for</p><h2>${site.fit}</h2>
+          <a class="nett-button yellow" href="mailto:hello@articial.app?subject=NETT%20profitability%20fit">Talk through your margins ${arrow()}</a>
+        </section>
+      </div>
+    </main>`;
+}
+
 function productPage() {
   const capabilities = site.capabilities.map(([title, text], index) => `<article><span>0${index + 1}</span><h3>${title}</h3><p>${text}</p></article>`).join("");
   return `
@@ -520,7 +583,7 @@ function productPage() {
 
 document.title = `${site.name} — ${site.title}`;
 document.querySelector('meta[name="description"]').content = site.description;
-document.getElementById("app").innerHTML = `${nav()}${siteKey === "articial" ? articialPage() : siteKey === "utuh" ? utuhPage() : siteKey === "patch" ? patchPage() : siteKey === "rove" ? rovePage() : siteKey === "proof" ? proofPage() : productPage()}${footer()}`;
+document.getElementById("app").innerHTML = `${nav()}${siteKey === "articial" ? articialPage() : siteKey === "utuh" ? utuhPage() : siteKey === "patch" ? patchPage() : siteKey === "rove" ? rovePage() : siteKey === "proof" ? proofPage() : siteKey === "nett" ? nettPage() : productPage()}${footer()}`;
 
 const header = document.querySelector(".site-header");
 const menuButton = document.querySelector(".menu-toggle");

@@ -13,6 +13,7 @@ const required = [
   "dist/assets/proof-hero.webp",
   "dist/assets/proof-review.webp",
   "dist/assets/proof-evidence.webp",
+  "dist/assets/nett-operator.webp",
 ];
 
 await Promise.all(required.map((file) => access(file)));
@@ -38,4 +39,5 @@ if (!js.includes("utuh-hero-v2") || !css.includes(".utuh-metrics")) throw new Er
 if (!js.includes("patch-hero-v2") || !css.includes(".patch-partnership")) throw new Error("Missing redesigned PATCH homepage structure");
 if (!js.includes("rove-hero-v2") || !css.includes(".rove-process-grid")) throw new Error("Missing redesigned ROVE homepage structure");
 if (!js.includes("proof-hero-v2") || !css.includes(".proof-matrix")) throw new Error("Missing redesigned PROOF homepage structure");
+if (!js.includes("nett-hero-v2") || !css.includes(".nett-waterfall")) throw new Error("Missing redesigned NETT homepage structure");
 console.log("Site checks passed.");
