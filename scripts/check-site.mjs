@@ -6,6 +6,7 @@ const required = [
   "dist/app.js",
   "dist/favicon.svg",
   "dist/assets/whole-system.png",
+  "dist/assets/patch-hero.webp",
 ];
 
 await Promise.all(required.map((file) => access(file)));
@@ -28,4 +29,5 @@ if (!css.includes("prefers-reduced-motion")) throw new Error("Missing reduced-mo
 if (js.includes("UTUH /")) throw new Error("Product sites still use nested UTUH branding");
 if (!js.includes("A focused operational product")) throw new Error("Missing restrained product-to-UTUH relationship");
 if (!js.includes("utuh-hero-v2") || !css.includes(".utuh-metrics")) throw new Error("Missing redesigned UTUH homepage structure");
+if (!js.includes("patch-hero-v2") || !css.includes(".patch-partnership")) throw new Error("Missing redesigned PATCH homepage structure");
 console.log("Site checks passed.");

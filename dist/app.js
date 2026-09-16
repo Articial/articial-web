@@ -304,6 +304,75 @@ function utuhPage() {
     </main>`;
 }
 
+function patchPage() {
+  const capabilities = site.capabilities.map(([title, text], index) => `<article><span>0${index + 1}</span><h3>${title}</h3><p>${text}</p></article>`).join("");
+  return `
+    <main id="main" class="patch-main">
+      <section class="patch-hero-v2">
+        <img src="/assets/patch-hero.webp" alt="An operations leader working with documents and digital systems" />
+        <div class="patch-hero-shade"></div>
+        <div class="patch-tags" aria-hidden="true">
+          <span class="patch-tag tag-one"><i></i>Manual handoffs</span>
+          <span class="patch-tag tag-two"><i></i>Spreadsheet debt</span>
+          <span class="patch-tag tag-three"><i></i>Missing ownership</span>
+          <span class="patch-tag tag-four"><i></i>Exceptions everywhere</span>
+        </div>
+        <div class="patch-hero-copy reveal">
+          <p class="kicker">Custom operational systems</p>
+          <h1>Map the gap.<br />Build what’s missing.</h1>
+          <p>${site.description}</p>
+          <div class="patch-actions"><a class="patch-button solid" href="mailto:hello@articial.app?subject=Map%20a%20workflow%20with%20PATCH">Bring us a workflow ${arrow()}</a><a class="patch-button ghost" href="#how-it-works">See how PATCH works</a></div>
+        </div>
+      </section>
+
+      <section class="patch-partnership" id="system">
+        <div class="patch-partnership-copy">
+          <p class="section-label">The PATCH partnership</p>
+          <h2>The important work is already happening. It just needs a system.</h2>
+          <p>We work alongside operators to understand the real process, reveal where information and ownership break down, and build the missing layer around the tools worth keeping.</p>
+        </div>
+        <div class="patch-methods">
+          <article><strong>01</strong><h3>Map the work</h3><p>Follow the handoffs, decisions, exceptions, and evidence as they really happen.</p></article>
+          <article><strong>02</strong><h3>Build the layer</h3><p>Connect the useful tools and give the missing operational logic a dependable home.</p></article>
+          <article><strong>03</strong><h3>Measure the change</h3><p>Track speed, errors, ownership, and exceptions so improvement becomes visible.</p></article>
+        </div>
+        <div class="patch-system-strip" aria-label="Systems PATCH commonly connects"><span>Messages</span><span>Spreadsheets</span><span>Documents</span><span>ERP</span><span>People</span></div>
+      </section>
+
+      <section class="patch-about section-pad">
+        <div class="patch-about-copy">
+          <p class="section-label">About PATCH</p>
+          <h2>Make invisible work visible—and fragile work reliable.</h2>
+          <p>PATCH is for the process that matters too much to remain a workaround, but is too specific for off-the-shelf software.</p>
+          <a class="patch-button dark" href="#fit">Is PATCH right for us? ${arrow()}</a>
+        </div>
+        <div class="patch-health-card reveal">
+          <div class="health-card-head"><span>Workflow health</span><i>Live view</i></div>
+          <strong>Clear</strong>
+          <div class="health-track"><i></i></div>
+          <p>Every handoff has an owner.<br />Every exception has a place to go.</p>
+          <div class="health-pills"><span>Mapped</span><span>Connected</span><span>Reviewable</span><span>Measurable</span></div>
+        </div>
+      </section>
+
+      <section class="patch-process section-pad" id="how-it-works">
+        <p class="section-label">How the work moves</p>
+        <div>${site.flow.map((step, index) => `<article><span>0${index + 1}</span><h3>${step}</h3></article>`).join("")}</div>
+      </section>
+
+      <section class="patch-capabilities section-pad">
+        <div><p class="section-label">What we build</p><h2>Small enough to use.<br />Strong enough to trust.</h2></div>
+        <div class="patch-capability-list">${capabilities}</div>
+      </section>
+
+      <section class="patch-fit section-pad" id="fit">
+        <p class="section-label">Built for</p>
+        <h2>${site.fit}</h2>
+        <a class="patch-button solid" href="mailto:hello@articial.app?subject=PATCH%20fit%20check">Talk through the workflow ${arrow()}</a>
+      </section>
+    </main>`;
+}
+
 function productPage() {
   const capabilities = site.capabilities.map(([title, text], index) => `<article><span>0${index + 1}</span><h3>${title}</h3><p>${text}</p></article>`).join("");
   return `
@@ -329,7 +398,7 @@ function productPage() {
 
 document.title = `${site.name} — ${site.title}`;
 document.querySelector('meta[name="description"]').content = site.description;
-document.getElementById("app").innerHTML = `${nav()}${siteKey === "articial" ? articialPage() : siteKey === "utuh" ? utuhPage() : productPage()}${footer()}`;
+document.getElementById("app").innerHTML = `${nav()}${siteKey === "articial" ? articialPage() : siteKey === "utuh" ? utuhPage() : siteKey === "patch" ? patchPage() : productPage()}${footer()}`;
 
 const header = document.querySelector(".site-header");
 const menuButton = document.querySelector(".menu-toggle");
