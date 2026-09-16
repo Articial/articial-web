@@ -25,4 +25,6 @@ for (const site of ["articial", "utuh", "patch", "intake", "nett", "proof", "rel
 }
 
 if (!css.includes("prefers-reduced-motion")) throw new Error("Missing reduced-motion support");
+if (js.includes("UTUH /")) throw new Error("Product sites still use nested UTUH branding");
+if (!js.includes("A focused operational product")) throw new Error("Missing restrained product-to-UTUH relationship");
 console.log("Site checks passed.");

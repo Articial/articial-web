@@ -153,8 +153,8 @@ const sites = {
 function getSite() {
   const query = new URLSearchParams(location.search).get("site");
   if (query && sites[query]) return query;
-  const subdomain = location.hostname.split(".")[0].toLowerCase();
-  return sites[subdomain] ? subdomain : "articial";
+  const matchingLabel = location.hostname.toLowerCase().split(".").find((label) => sites[label]);
+  return matchingLabel || "articial";
 }
 
 const siteKey = getSite();
@@ -174,41 +174,52 @@ function arrow() {
 }
 
 function nav() {
-  const productLinks = products.map((key) => `<a href="${href(key)}"><span>${sites[key].index}</span>${sites[key].name}</a>`).join("");
+  const isProduct = products.includes(siteKey);
+  const brandName = site.name;
+  const links = siteKey === "articial"
+    ? `<a href="${href("utuh")}">UTUH</a><a href="mailto:hello@articial.app?subject=Articial inquiry">Contact</a>`
+    : siteKey === "utuh"
+      ? `<a href="#products">Products</a><a href="#approach">Approach</a><a class="nav-cta" href="#contact">Start a conversation</a>`
+      : `<a href="#how-it-works">How it works</a><a href="#system">The system</a><a href="#fit">Built for</a><a class="nav-cta" href="#contact">Talk to ${site.name}</a>`;
   return `
     <header class="site-header">
-      <a class="brand" href="${href(siteKey === "articial" ? "articial" : "utuh")}" aria-label="${siteKey === "articial" ? "Articial" : "UTUH"} home">
+      <a class="brand ${isProduct ? "product-brand" : ""}" href="/" aria-label="${brandName} home">
         <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
-        <strong>${siteKey === "articial" ? "ARTICIAL" : "UTUH"}</strong>
-        ${products.includes(siteKey) ? `<em>/ ${site.name}</em>` : ""}
+        <strong>${brandName}</strong>
+        ${isProduct ? `<em>by UTUH</em>` : ""}
       </a>
-      <nav aria-label="Main navigation">
-        <button class="nav-products" type="button" aria-expanded="false" aria-controls="product-menu">Products <span>+</span></button>
-        <a href="${href("utuh")}">About UTUH</a>
-        <a class="nav-cta" href="mailto:hello@articial.app?subject=${encodeURIComponent(`A conversation about ${site.name}`)}">Talk to us</a>
-      </nav>
+      <nav aria-label="Main navigation">${links}</nav>
       <button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false"><span></span><span></span></button>
-      <div class="product-menu" id="product-menu" hidden>
-        <p>One family. Seven operational gaps.</p>
-        <div>${productLinks}</div>
-      </div>
     </header>`;
 }
 
 function footer() {
+  if (siteKey === "articial") return `
+    <footer id="contact">
+      <div class="footer-lead"><p>Building something useful?</p><a href="mailto:hello@articial.app?subject=Articial inquiry">Let’s talk ${arrow()}</a></div>
+      <div class="footer-grid compact-footer">
+        <a class="brand footer-brand" href="/"><span class="brand-mark"><i></i><i></i><i></i></span><strong>ARTICIAL</strong></a>
+        <p>Independent technology and product practice.<br />Jakarta, Indonesia.</p>
+        <p class="fine">© ${new Date().getFullYear()} Articial.</p>
+      </div>
+    </footer>`;
+
+  const isProduct = products.includes(siteKey);
+  const contactSubject = encodeURIComponent(`${site.name} — website inquiry`);
+  const footerLinks = isProduct
+    ? `<a href="#how-it-works">How it works</a><a href="#system">The system</a><a href="#fit">Built for</a><a href="${href("utuh")}">About UTUH</a>`
+    : `<a href="#approach">Approach</a><a href="#products">Products</a>${products.map((key) => `<a href="${href(key)}">${sites[key].name}</a>`).join("")}`;
   return `
-    <footer>
+    <footer id="contact">
       <div class="footer-lead">
-        <p>Have a fragmented workflow?</p>
-        <a href="mailto:hello@articial.app?subject=Make this workflow whole">Let’s map it ${arrow()}</a>
+        <p>${isProduct ? `Could ${site.name} fit your workflow?` : "Have a fragmented workflow?"}</p>
+        <a href="mailto:hello@articial.app?subject=${contactSubject}">${isProduct ? "Let’s find out" : "Let’s map it"} ${arrow()}</a>
       </div>
       <div class="footer-grid">
-        <a class="brand footer-brand" href="${href("articial")}"><span class="brand-mark"><i></i><i></i><i></i></span><strong>ARTICIAL</strong></a>
-        <p>Independent technology and product practice.<br />Jakarta, Indonesia.</p>
-        <div class="footer-links">
-          <a href="${href("utuh")}">UTUH</a>${products.map((key) => `<a href="${href(key)}">${sites[key].name}</a>`).join("")}
-        </div>
-        <p class="fine">© ${new Date().getFullYear()} Articial. Product names remain provisional until formally cleared.</p>
+        <a class="brand footer-brand" href="/"><span class="brand-mark"><i></i><i></i><i></i></span><strong>${site.name}</strong>${isProduct ? "<em>by UTUH</em>" : ""}</a>
+        <p>${isProduct ? `${site.category}.` : "Operational software for fragmented work."}<br />Jakarta, Indonesia.</p>
+        <div class="footer-links">${footerLinks}</div>
+        <p class="fine">© ${new Date().getFullYear()} ${isProduct ? `${site.name} by UTUH` : "UTUH"}. Product names remain provisional until formally cleared.</p>
       </div>
     </footer>`;
 }
@@ -269,7 +280,7 @@ function utuhPage() {
         </div>
       </section>
       <section class="problem-strip"><p>Fragmented tools</p><span></span><p>Manual handoffs</p><span></span><p>Incomplete information</p><span></span><strong>Reliable operations</strong></section>
-      <section class="principle section-pad">
+      <section class="principle section-pad" id="approach">
         <p class="section-label">The operating idea</p>
         <div><h2>Keep what works.<br />Fix what doesn’t.</h2><p>The best operational system does not force a business to rebuild itself around software. It connects the work already happening, gives exceptions a place to go, and makes ownership visible.</p></div>
       </section>
@@ -294,16 +305,14 @@ function productPage() {
           ${site.signal.map((item, index) => `<div class="signal-row"><span>${String(index + 1).padStart(2, "0")}</span><p>${item}</p><i></i></div>`).join("")}
         </div>
       </section>
-      <section class="flow-section section-pad">
+      <section class="flow-section section-pad" id="how-it-works">
         <p class="section-label">How the work moves</p>
         <div class="flow-line">${site.flow.map((step, index) => `<div><span>${index + 1}</span><p>${step}</p></div>`).join("")}</div>
       </section>
       <section class="outcome-band section-pad"><p class="section-label">Designed to change</p>${site.outcomes.map((outcome) => `<h2>${outcome}</h2>`).join("")}</section>
-      <section class="capability-section section-pad"><div class="capability-intro"><p class="section-label">The system</p><h2>Small enough to use.<br />Strong enough to trust.</h2></div><div class="capability-list">${capabilities}</div></section>
-      <section class="fit-section section-pad"><p class="section-label">Built for</p><h2>${site.fit}</h2><a class="text-link" href="mailto:hello@articial.app?subject=${encodeURIComponent(`${site.name} fit check`)}">See if the workflow fits ${arrow()}</a></section>
-      <nav class="next-product section-pad" aria-label="Next product">
-        ${(() => { const next = products[(products.indexOf(siteKey) + 1) % products.length]; return `<span>Next in the family</span><a href="${href(next)}"><strong>${sites[next].name}</strong><em>${sites[next].title}</em>${arrow()}</a>`; })()}
-      </nav>
+      <section class="capability-section section-pad" id="system"><div class="capability-intro"><p class="section-label">The system</p><h2>Small enough to use.<br />Strong enough to trust.</h2></div><div class="capability-list">${capabilities}</div></section>
+      <section class="fit-section section-pad" id="fit"><p class="section-label">Built for</p><h2>${site.fit}</h2><a class="text-link" href="#contact">See if the workflow fits ${arrow()}</a></section>
+      <section class="product-origin section-pad"><span>${site.name}</span><div><p>A focused operational product</p><a href="${href("utuh")}">by UTUH ${arrow()}</a></div></section>
     </main>`;
 }
 
@@ -312,22 +321,12 @@ document.querySelector('meta[name="description"]').content = site.description;
 document.getElementById("app").innerHTML = `${nav()}${siteKey === "articial" ? articialPage() : siteKey === "utuh" ? utuhPage() : productPage()}${footer()}`;
 
 const header = document.querySelector(".site-header");
-const productButton = document.querySelector(".nav-products");
-const productMenu = document.querySelector(".product-menu");
 const menuButton = document.querySelector(".menu-toggle");
 
 function closeMenus() {
-  productMenu.hidden = true;
-  productButton.setAttribute("aria-expanded", "false");
   header.classList.remove("mobile-open");
   menuButton.setAttribute("aria-expanded", "false");
 }
-
-productButton.addEventListener("click", () => {
-  const opening = productMenu.hidden;
-  productMenu.hidden = !opening;
-  productButton.setAttribute("aria-expanded", String(opening));
-});
 
 menuButton.addEventListener("click", () => {
   const opening = !header.classList.contains("mobile-open");

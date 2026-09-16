@@ -1,6 +1,6 @@
 # Articial website family
 
-One Cloudflare Worker serves nine hostname-aware websites from a shared design system. Exact Worker routes preserve the zone's existing proxied DNS while replacing its failing origin response for these hostnames:
+One Cloudflare Worker currently hosts nine hostname-aware, standalone brand websites from a shared design system. `articial.app` is deployment infrastructure, not the visible parent identity of UTUH or its products. Exact Worker routes preserve the zone's existing proxied DNS while replacing its failing origin response for these hostnames:
 
 - `articial.app`
 - `utuh.articial.app`
@@ -13,6 +13,8 @@ One Cloudflare Worker serves nine hostname-aware websites from a shared design s
 - `span.articial.app`
 
 For local previews, use `?site=utuh`, `?site=patch`, or another site key.
+
+Canonical URLs use the incoming request origin. The same build can move to future standalone domains such as `utuh.id` without publishing `articial.app` in page metadata.
 
 ## Development
 
