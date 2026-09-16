@@ -264,25 +264,36 @@ function articialPage() {
 
 function utuhPage() {
   return `
-    <main id="main">
-      <section class="utuh-hero section-pad">
-        <div class="hero-copy reveal">
+    <main id="main" class="utuh-main">
+      <section class="utuh-hero-v2">
+        <div class="utuh-hero-copy reveal">
           <p class="kicker">Operational software company</p>
-          <h1>Make work<br /><span>whole.</span></h1>
-          <p class="hero-lead">${site.description}</p>
-          <div class="hero-actions"><a class="button" href="#products">Explore the family ${arrow()}</a><a class="text-link" href="mailto:hello@articial.app?subject=An operational workflow">Bring us a workflow</a></div>
+          <h1>Software that makes<br />operations <span>whole.</span></h1>
+          <p>${site.description}</p>
+          <div class="hero-actions"><a class="utuh-button primary" href="#products">Explore the products ${arrow()}</a><a class="utuh-button secondary" href="#approach">How we think</a></div>
         </div>
-        <div class="whole-machine reveal delay-1" data-assembled="false">
-          <div class="machine-grid" aria-hidden="true">
-            <span class="fragment f1">Messages</span><span class="fragment f2">Sheets</span><span class="fragment f3">ERP</span><span class="fragment f4">PDFs</span><span class="fragment f5">People</span><span class="core">ONE<br />SYSTEM</span>
+        <div class="utuh-system-stage whole-machine reveal delay-1" data-assembled="false" aria-label="An interactive view of UTUH products connecting into one operational system">
+          <div class="utuh-orbit" aria-hidden="true">
+            <article class="orbit-card orbit-patch"><small>PATCH</small><strong>Gap mapped</strong><span class="mini-route"><i></i><i></i><i></i></span></article>
+            <article class="orbit-card orbit-intake"><small>INTAKE</small><strong>12 drafts</strong><span>Ready to review</span></article>
+            <article class="orbit-card orbit-nett"><small>NETT</small><strong>True margin</strong><span class="mini-chart"><i></i><i></i><i></i><i></i></span></article>
+            <article class="orbit-card orbit-proof"><small>PROOF</small><strong>Matched</strong><span>Invoice + payment</span></article>
+            <article class="orbit-card orbit-relay"><small>RELAY</small><strong>Sync healthy</strong><span class="health-dot">Live</span></article>
+            <article class="orbit-card orbit-span"><small>SPAN</small><strong>Variance visible</strong><span>Before it becomes a surprise</span></article>
           </div>
-          <button type="button" class="assemble-button">Make it whole <span>+</span></button>
+          <button type="button" class="assemble-button"><span>Make it whole</span><b aria-hidden="true">↗</b></button>
         </div>
+        <p class="utuh-system-note reveal delay-2"><span>● ● ● ● ●</span> Seven focused products. One operational idea.</p>
       </section>
-      <section class="problem-strip"><p>Fragmented tools</p><span></span><p>Manual handoffs</p><span></span><p>Incomplete information</p><span></span><strong>Reliable operations</strong></section>
-      <section class="principle section-pad" id="approach">
+      <section class="utuh-trust-strip" aria-label="Operational areas"><span>Commerce</span><i></i><span>Distribution</span><i></i><span>Finance</span><i></i><span>Rental</span><i></i><span>Projects</span></section>
+      <section class="utuh-about section-pad" id="approach">
         <p class="section-label">The operating idea</p>
-        <div><h2>Keep what works.<br />Fix what doesn’t.</h2><p>The best operational system does not force a business to rebuild itself around software. It connects the work already happening, gives exceptions a place to go, and makes ownership visible.</p></div>
+        <h2>A practical software partner for <span class="word-blue">smarter</span> operations and <span class="word-lime">more adaptive</span> businesses.</h2>
+        <div class="utuh-metrics">
+          <article class="metric-card metric-blue"><p>Focused products</p><strong>07</strong><span>One for each expensive operational gap we keep seeing.</span><div class="metric-chip">UTUH PRODUCT FAMILY</div></article>
+          <article class="metric-card metric-paper"><p>Our commitment</p><strong>Start with the work.</strong><span>We map the real handoffs, exceptions, and ownership before shaping the software.</span><div class="metric-people"><i>01</i><i>02</i><i>03</i><em>workflow → system</em></div></article>
+          <div class="metric-stack"><article class="metric-card metric-lime"><p>Shared foundation</p><strong>One operational language.</strong><span>Connected data, clear ownership, reviewable automation.</span></article><article class="metric-card metric-dark"><p>Coverage</p><strong>End to end</strong></article></div>
+        </div>
       </section>
       <section class="product-grid section-pad" id="products">
         ${products.map((key) => `<a class="product-card" href="${href(key)}" style="--card-accent:${sites[key].accent}"><span>${sites[key].index}</span><div><h3>${sites[key].name}</h3><p>${sites[key].title}</p></div>${arrow()}</a>`).join("")}
@@ -340,7 +351,7 @@ document.querySelector(".assemble-button")?.addEventListener("click", (event) =>
   const machine = event.currentTarget.closest(".whole-machine");
   const assembled = machine.dataset.assembled === "true";
   machine.dataset.assembled = String(!assembled);
-  event.currentTarget.firstChild.textContent = assembled ? "Make it whole " : "Take it apart ";
+  event.currentTarget.querySelector("span").textContent = assembled ? "Make it whole" : "Take it apart";
 });
 
 const observer = new IntersectionObserver((entries) => entries.forEach((entry) => {
