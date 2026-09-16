@@ -10,6 +10,9 @@ const required = [
   "dist/assets/rove-hero.webp",
   "dist/assets/rove-ready.webp",
   "dist/assets/rove-inspection.webp",
+  "dist/assets/proof-hero.webp",
+  "dist/assets/proof-review.webp",
+  "dist/assets/proof-evidence.webp",
 ];
 
 await Promise.all(required.map((file) => access(file)));
@@ -34,4 +37,5 @@ if (!js.includes("A focused operational product")) throw new Error("Missing rest
 if (!js.includes("utuh-hero-v2") || !css.includes(".utuh-metrics")) throw new Error("Missing redesigned UTUH homepage structure");
 if (!js.includes("patch-hero-v2") || !css.includes(".patch-partnership")) throw new Error("Missing redesigned PATCH homepage structure");
 if (!js.includes("rove-hero-v2") || !css.includes(".rove-process-grid")) throw new Error("Missing redesigned ROVE homepage structure");
+if (!js.includes("proof-hero-v2") || !css.includes(".proof-matrix")) throw new Error("Missing redesigned PROOF homepage structure");
 console.log("Site checks passed.");

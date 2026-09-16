@@ -428,6 +428,73 @@ function rovePage() {
     </main>`;
 }
 
+function proofPage() {
+  const capabilities = site.capabilities.map(([title, text], index) => `<article><span>0${index + 1}</span><h3>${title}</h3><p>${text}</p></article>`).join("");
+  const evidence = [
+    ["Purchase order", "Matched", "complete"],
+    ["Supplier invoice", "Matched", "complete"],
+    ["Tax document", "Review", "review"],
+    ["Delivery note", "Missing", "missing"],
+    ["Payment proof", "Matched", "complete"],
+  ];
+  return `
+    <main id="main" class="proof-main">
+      <section class="proof-hero-v2">
+        <img src="/assets/proof-hero.webp" alt="An Indonesian finance and procurement team standing together in Jakarta" />
+        <div class="proof-hero-shade"></div>
+        <div class="proof-hero-copy reveal">
+          <p class="kicker">Transaction document operations</p>
+          <h1>Every transaction clear.<br /><em>Every document accounted for.</em></h1>
+          <p>${site.description}</p>
+          <a class="proof-button dark" href="#matching">See how it matches ${arrow()}</a>
+        </div>
+        <div class="proof-hero-status reveal delay-1" aria-label="Transaction evidence status"><span><i></i> Matched</span><span><i></i> Needs review</span><span><i></i> Missing</span></div>
+      </section>
+
+      <section class="proof-intro section-pad" id="system">
+        <div class="proof-intro-copy"><p class="section-label">Welcome to PROOF</p><h2>Take control of transaction evidence—and make every audit trail reliable.</h2><p>Bring records and supporting documents into one reviewable package. PROOF shows what matches, what is uncertain, and exactly what is still missing.</p></div>
+        <figure><img src="/assets/proof-review.webp" alt="Finance operators reviewing a transaction package together" /><figcaption><span>Human-in-the-loop</span> Ambiguity stays visible until someone resolves it.</figcaption></figure>
+      </section>
+
+      <section class="proof-features section-pad" id="how-it-works">
+        <div class="proof-section-head"><p class="section-label">Made for finance</p><h2>Clear, complete, and reviewable.</h2></div>
+        <div class="proof-feature-grid">
+          <article class="proof-feature dark"><span>01 · Match</span><div class="proof-match-lines"><i></i><i></i><i></i></div><h3>Build the transaction package.</h3><p>Connect each record to the evidence that proves it.</p></article>
+          <article class="proof-feature photo"><img src="/assets/proof-evidence.webp" alt="A transaction evidence package being organized" /><div><span>02 · Detect</span><h3>Find what is missing.</h3><p>See gaps before month-end or an audit makes them urgent.</p></div></article>
+          <article class="proof-feature blue"><span>03 · Resolve</span><div class="proof-confidence"><b>86%</b><small>match confidence</small></div><h3>Keep judgment where it belongs.</h3><p>Route low-confidence matches to a person, not a black box.</p></article>
+        </div>
+      </section>
+
+      <section class="proof-matrix section-pad" id="matching">
+        <div class="proof-section-head"><p class="section-label">One transaction</p><h2>Every required document, in one place.</h2></div>
+        <div class="proof-matrix-card">
+          <div class="proof-matrix-top"><div><span>Transaction package</span><strong>TRX · 0284</strong></div><b>3 / 5 complete</b></div>
+          <div class="proof-matrix-rows">${evidence.map(([name, status, state], index) => `<article><span>0${index + 1}</span><strong>${name}</strong><em class="${state}"><i></i>${status}</em><button type="button" aria-label="Open ${name}">↗</button></article>`).join("")}</div>
+          <div class="proof-matrix-foot"><p>One visible exception is easier to resolve than five disconnected folders.</p><a class="proof-button dark" href="mailto:hello@articial.app?subject=PROOF%20transaction%20workflow">Map your evidence flow ${arrow()}</a></div>
+        </div>
+      </section>
+
+      <section class="proof-packages section-pad">
+        <div class="proof-section-head"><p class="section-label">At a glance</p><h2>Know which packages can move forward.</h2></div>
+        <div class="proof-package-grid">
+          <article class="complete"><div><span>Ready</span><b>TRX · 0279</b></div><h3>Complete package</h3><p>All required evidence matched and ready for review.</p><em>5 / 5</em></article>
+          <article class="review"><div><span>Check</span><b>TRX · 0284</b></div><h3>Needs review</h3><p>A tax document is present, but the match needs a decision.</p><em>4 / 5</em></article>
+          <article class="missing"><div><span>Action</span><b>TRX · 0291</b></div><h3>Missing evidence</h3><p>The delivery note has not been attached to the transaction.</p><em>3 / 5</em></article>
+        </div>
+      </section>
+
+      <section class="proof-capabilities section-pad">
+        <div><p class="section-label">Built into PROOF</p><h2>Evidence operations without the guesswork.</h2></div>
+        <div class="proof-capability-list">${capabilities}</div>
+      </section>
+
+      <section class="proof-fit section-pad" id="fit">
+        <p class="section-label">Built for</p><h2>${site.fit}</h2>
+        <a class="proof-button light" href="mailto:hello@articial.app?subject=PROOF%20workflow%20fit">Talk through your evidence flow ${arrow()}</a>
+      </section>
+    </main>`;
+}
+
 function productPage() {
   const capabilities = site.capabilities.map(([title, text], index) => `<article><span>0${index + 1}</span><h3>${title}</h3><p>${text}</p></article>`).join("");
   return `
@@ -453,7 +520,7 @@ function productPage() {
 
 document.title = `${site.name} — ${site.title}`;
 document.querySelector('meta[name="description"]').content = site.description;
-document.getElementById("app").innerHTML = `${nav()}${siteKey === "articial" ? articialPage() : siteKey === "utuh" ? utuhPage() : siteKey === "patch" ? patchPage() : siteKey === "rove" ? rovePage() : productPage()}${footer()}`;
+document.getElementById("app").innerHTML = `${nav()}${siteKey === "articial" ? articialPage() : siteKey === "utuh" ? utuhPage() : siteKey === "patch" ? patchPage() : siteKey === "rove" ? rovePage() : siteKey === "proof" ? proofPage() : productPage()}${footer()}`;
 
 const header = document.querySelector(".site-header");
 const menuButton = document.querySelector(".menu-toggle");
