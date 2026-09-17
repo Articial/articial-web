@@ -623,6 +623,61 @@ function intakePage() {
     </main>`;
 }
 
+function spanPage() {
+  const capabilities = site.capabilities.map(([title, text], index) => `<article><span>0${index + 1}</span><h3>${title}</h3><p>${text}</p></article>`).join("");
+  return `
+    <main id="main" class="span-main">
+      <section class="span-hero">
+        <div class="span-hero-copy reveal">
+          <p class="kicker">Project and construction control</p>
+          <h1>Every project visible.<br />Every cost <span>under control.</span></h1>
+          <p>SPAN connects budget, commitments, invoices, evidence, progress, and variance across the full project lifecycle.</p>
+          <a class="span-button" href="#control">Explore project control ${arrow()}</a>
+        </div>
+        <div class="span-map" aria-label="Project portfolio map">
+          <div class="span-map-grid" aria-hidden="true"></div>
+          <span class="span-pin pin-one" aria-hidden="true"></span><span class="span-pin pin-two" aria-hidden="true"></span><span class="span-pin pin-three" aria-hidden="true"></span><span class="span-pin pin-four" aria-hidden="true"></span>
+          <article class="span-project-card reveal delay-1">
+            <img src="/assets/span-project.webp" alt="Commercial construction project in progress" />
+            <div><span>Active project · Jakarta</span><h2>Cendana Office</h2><p>Construction progress <b>68%</b></p><div class="span-progress"><i></i></div><footer><strong>Rp4.2B budget</strong><em>Variance +2.4%</em></footer></div>
+          </article>
+        </div>
+      </section>
+      <section class="span-kpis" aria-label="Portfolio snapshot"><article><strong>12</strong><span>active projects</span></article><article><strong>Rp28.4B</strong><span>total budget</span></article><article><strong>Rp19.7B</strong><span>committed</span></article><article><strong>3</strong><span>need attention</span></article></section>
+      <section class="span-control section-pad" id="control">
+        <div class="span-control-copy"><p class="section-label">Project truth</p><h2>Know the cost before it becomes history.</h2><p>SPAN brings budget, commitments, invoices, payments, evidence, and progress into one reviewable project view.</p><a class="span-button" href="#system">See the control layer ${arrow()}</a></div>
+        <div class="span-control-grid">
+          <article class="span-small-card"><span>Current visibility</span><strong>7 connected views</strong><p>One project language from BOQ to completion forecast.</p></article>
+          <article class="span-small-card"><span>Proof coverage</span><strong>92%</strong><p>Payments supported by the required documents.</p><div class="span-ring" aria-hidden="true"></div></article>
+          <article class="span-alert-card"><span>Variance watch</span><strong>+2.4%</strong><p>MEP package is trending above the approved commitment.</p><em>Needs review</em></article>
+          <article class="span-location-card"><div class="mini-site-map" aria-hidden="true"><i></i><i></i><i></i></div><span>Portfolio control</span><strong>See risk where it happens.</strong><p>Track project health without waiting for another spreadsheet consolidation.</p></article>
+        </div>
+      </section>
+
+      <section class="span-money section-pad" id="system">
+        <header><div><p class="section-label">The financial control layer</p><h2>Budget is the plan.<br /><span>Commitment is the truth.</span></h2></div><p>Every project number keeps its vendor, document, approval, and progress context attached.</p></header>
+        <div class="span-ledger">
+          <div class="span-ledger-head"><div><span>Project</span><strong>Cendana Office · PRJ-012</strong></div><em>Updated today</em></div>
+          <div class="span-money-grid"><article><span>Budget</span><strong>Rp4.20B</strong><small>Approved baseline</small></article><article><span>Committed</span><strong>Rp3.18B</strong><small>75.7% of budget</small></article><article><span>Invoiced</span><strong>Rp2.64B</strong><small>83% of commitments</small></article><article><span>Paid</span><strong>Rp2.21B</strong><small>84% of invoices</small></article></div>
+          <div class="span-forecast"><div><span>Projected completion</span><strong>Rp4.30B</strong></div><div><span>Forecast variance</span><strong class="warn">+Rp100M · 2.4%</strong></div><div><span>Unverified spend</span><strong>Rp46M</strong></div></div>
+        </div>
+      </section>
+
+      <section class="span-flow section-pad" id="how-it-works">
+        <header><p class="section-label">From budget to completion</p><h2>One lifecycle.<br />No blind handoffs.</h2></header>
+        <div>${site.flow.map((step, index) => `<article><span>0${index + 1}</span><h3>${step}</h3><p>${["Set the approved baseline by project, category, and package.", "Connect every promise to a vendor, value, and approval.", "Match invoices, payments, and evidence to the work.", "See remaining cost and variance before completion."][index]}</p></article>`).join("")}</div>
+      </section>
+
+      <section class="span-exceptions section-pad">
+        <div><p class="section-label">Exceptions first</p><h2>The project tells you where to look.</h2><p>SPAN does not hide ambiguity inside a total. Missing evidence, budget pressure, and vendor gaps stay visible until someone resolves them.</p></div>
+        <div class="span-exception-list"><article><i class="orange"></i><div><strong>Commitment above package budget</strong><span>MEP · Rp72M over baseline</span></div><em>Review</em></article><article><i class="yellow"></i><div><strong>Payment proof incomplete</strong><span>Vendor Aruna · INV-0284</span></div><em>2 files</em></article><article><i class="green"></i><div><strong>Progress claim verified</strong><span>Structure · 68% complete</span></div><em>Ready</em></article></div>
+      </section>
+
+      <section class="span-capabilities section-pad"><div><p class="section-label">Built into SPAN</p><h2>Project control small teams can actually run.</h2></div><div class="span-capability-list">${capabilities}</div></section>
+      <section class="span-fit section-pad" id="fit"><p class="section-label">Built for</p><h2>${site.fit}</h2><a class="span-button light" href="mailto:hello@articial.app?subject=SPAN%20project%20control">Talk through a project ${arrow()}</a></section>
+    </main>`;
+}
+
 function productPage() {
   const capabilities = site.capabilities.map(([title, text], index) => `<article><span>0${index + 1}</span><h3>${title}</h3><p>${text}</p></article>`).join("");
   return `
@@ -648,7 +703,7 @@ function productPage() {
 
 document.title = `${site.name} — ${site.title}`;
 document.querySelector('meta[name="description"]').content = site.description;
-document.getElementById("app").innerHTML = `${nav()}${siteKey === "articial" ? articialPage() : siteKey === "utuh" ? utuhPage() : siteKey === "patch" ? patchPage() : siteKey === "rove" ? rovePage() : siteKey === "proof" ? proofPage() : siteKey === "nett" ? nettPage() : siteKey === "intake" ? intakePage() : productPage()}${footer()}`;
+document.getElementById("app").innerHTML = `${nav()}${siteKey === "articial" ? articialPage() : siteKey === "utuh" ? utuhPage() : siteKey === "patch" ? patchPage() : siteKey === "rove" ? rovePage() : siteKey === "proof" ? proofPage() : siteKey === "nett" ? nettPage() : siteKey === "intake" ? intakePage() : siteKey === "span" ? spanPage() : productPage()}${footer()}`;
 
 const header = document.querySelector(".site-header");
 const menuButton = document.querySelector(".menu-toggle");

@@ -15,6 +15,7 @@ const required = [
   "dist/assets/proof-evidence.webp",
   "dist/assets/nett-operator.webp",
   "dist/assets/intake-phone.webp",
+  "dist/assets/span-project.webp",
 ];
 
 await Promise.all(required.map((file) => access(file)));
@@ -42,4 +43,5 @@ if (!js.includes("rove-hero-v2") || !css.includes(".rove-process-grid")) throw n
 if (!js.includes("proof-hero-v2") || !css.includes(".proof-matrix")) throw new Error("Missing redesigned PROOF homepage structure");
 if (!js.includes("nett-hero-v2") || !css.includes(".nett-waterfall")) throw new Error("Missing redesigned NETT homepage structure");
 if (!js.includes("intake-hero-v2") || !css.includes(".intake-order-card")) throw new Error("Missing redesigned INTAKE homepage structure");
+if (!js.includes("span-project-card") || !css.includes(".span-ledger")) throw new Error("Missing redesigned SPAN homepage structure");
 console.log("Site checks passed.");
