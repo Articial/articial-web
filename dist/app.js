@@ -623,6 +623,71 @@ function intakePage() {
     </main>`;
 }
 
+function relayPage() {
+  const capabilities = site.capabilities.map(([title, text], index) => `<article><span>0${index + 1}</span><h3>${title}</h3><p>${text}</p></article>`).join("");
+  return `
+    <main id="main" class="relay-main">
+      <section class="relay-hero-v2">
+        <div class="relay-hero-copy reveal">
+          <p class="relay-kicker"><i></i> Commerce data infrastructure</p>
+          <h1>Data where it<br /><span>needs to go.</span></h1>
+          <p>RELAY connects commerce systems, normalizes the records between them, and keeps failures visible until they are resolved.</p>
+          <div class="relay-actions"><a class="relay-button orange" href="#route">See one clean route ${arrow()}</a><a class="relay-button ghost" href="#system">Explore the system</a></div>
+        </div>
+        <div class="relay-route-stage reveal delay-1" aria-label="Commerce systems connected through RELAY">
+          <div class="relay-route-grid" aria-hidden="true"></div>
+          <div class="relay-source-stack"><article><i>S</i><div><span>Marketplace</span><strong>Shopee orders</strong></div><em>Live</em></article><article><i>J</i><div><span>Operations</span><strong>Jubelio</strong></div><em>Live</em></article><article><i>P</i><div><span>Store</span><strong>POS sales</strong></div><em>Live</em></article></div>
+          <div class="relay-core"><small>RELAY</small><strong>One clean<br />data route</strong><span><i></i> Sync healthy</span></div>
+          <div class="relay-destination-stack"><article><i>F</i><div><span>Destination</span><strong>Finance</strong></div></article><article><i>B</i><div><span>Destination</span><strong>Brand BI</strong></div></article><article><i>W</i><div><span>Destination</span><strong>Warehouse</strong></div></article></div>
+          <div class="relay-lines" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        </div>
+      </section>
+      <section class="relay-system-strip" aria-label="Systems RELAY can connect"><span>Jubelio</span><i></i><span>Shopify</span><i></i><span>Shopee</span><i></i><span>TikTok Shop</span><i></i><span>POS</span><i></i><span>BigQuery</span><i></i><span>Finance</span></section>
+      <section class="relay-how section-pad" id="how-it-works">
+        <header><p class="relay-kicker"><i></i> How RELAY works</p><h2>Move data without losing its meaning.</h2><p>Each route is designed around the records the workflow actually needs—not every field a platform happens to expose.</p></header>
+        <div class="relay-how-grid">
+          <article><span>01</span><div class="relay-icon plugs"><i></i><i></i></div><h3>Connect the systems</h3><p>Authenticate sources and destinations without replacing the tools teams already use.</p></article>
+          <article><span>02</span><div class="relay-icon schema"><i></i><i></i><i></i></div><h3>Normalize the schema</h3><p>Turn channel-specific products and orders into one canonical operational model.</p></article>
+          <article><span>03</span><div class="relay-icon mapping"><i></i><i></i><i></i><i></i></div><h3>Map ownership</h3><p>Make SKU, channel, brand, and destination rules explicit and reviewable.</p></article>
+          <article><span>04</span><div class="relay-icon pulse"><i></i><i></i><i></i></div><h3>Deliver and monitor</h3><p>Schedule the sync, record every run, and route failed records to an action queue.</p></article>
+        </div>
+      </section>
+
+      <section class="relay-model section-pad" id="route">
+        <div class="relay-model-copy"><p class="section-label">One operational language</p><h2>Different fields in.<br /><span>One clean model out.</span></h2><p>RELAY makes products, orders, channels, and brands mean the same thing across the systems that depend on them.</p></div>
+        <div class="relay-mapping-card">
+          <header><div><span>Canonical mapping</span><strong>Order schema · v1.4</strong></div><em>12 fields mapped</em></header>
+          <div class="relay-mapping-head"><span>Source field</span><span>Canonical field</span><span>Status</span></div>
+          <article><code>shop_order_sn</code><strong>order.id</strong><em class="ok"><i></i>Mapped</em></article>
+          <article><code>variation_sku</code><strong>item.sku</strong><em class="ok"><i></i>Mapped</em></article>
+          <article><code>warehouse_code</code><strong>fulfillment.location</strong><em class="review"><i></i>Review</em></article>
+          <article><code>payment_method</code><strong>payment.method</strong><em class="ok"><i></i>Mapped</em></article>
+          <footer><span>Last schema check · 09:42 WIB</span><button type="button">Review mapping ${arrow()}</button></footer>
+        </div>
+      </section>
+
+      <section class="relay-health section-pad">
+        <div class="relay-health-copy"><p class="relay-kicker dark"><i></i> Sync health</p><h2>Healthy routes stay quiet.<br />Exceptions stay visible.</h2><p>Operations can see what moved, what failed, and what needs an owner—without reading infrastructure logs.</p></div>
+        <div class="relay-health-map" aria-label="Current sync activity"><div class="health-dot-map" aria-hidden="true"></div><span class="health-node node-a"></span><span class="health-node node-b"></span><span class="health-node node-c"></span><span class="health-node node-d"></span><article><span>Last 24 hours</span><strong>148,920</strong><p>records delivered</p></article></div>
+        <div class="relay-health-stats"><article><strong>99.4%</strong><span>delivered first pass</span></article><article><strong>6</strong><span>active routes</span></article><article><strong>18</strong><span>records need review</span></article></div>
+      </section>
+
+      <section class="relay-exceptions section-pad" id="system">
+        <header><div><p class="section-label">Exception queue</p><h2>Failures people can actually resolve.</h2></div><p>Every failed record keeps its source, reason, attempt history, and next action attached.</p></header>
+        <div class="relay-queue"><div class="relay-queue-head"><span>Record</span><span>Route</span><span>Reason</span><span>Owner</span><span>Status</span></div><article><strong>ORD-48291</strong><span>Shopee → Finance</span><span>Unknown tax code</span><span>Finance ops</span><em class="review">Review</em></article><article><strong>SKU-AQ14</strong><span>Jubelio → BI</span><span>Brand mapping missing</span><span>Data ops</span><em class="review">Review</em></article><article><strong>ORD-48287</strong><span>POS → Warehouse</span><span>Delivered after retry</span><span>RELAY</span><em class="resolved">Resolved</em></article></div>
+      </section>
+
+      <section class="relay-capabilities section-pad"><div><p class="section-label">Built into RELAY</p><h2>The data layer between systems.</h2></div><div class="relay-capability-list">${capabilities}</div></section>
+
+      <section class="relay-scopes section-pad">
+        <header><p class="relay-kicker"><i></i> Start narrow</p><h2>Begin with one valuable route.</h2><p>Prove that the data arrives cleanly, ownership is clear, and the receiving team can trust the result. Expand only when the first route works.</p></header>
+        <div><article><span>First route</span><h3>One source.<br />One model.<br />One destination.</h3><p>Best for proving a high-value operational flow such as Jubelio to brand and channel BI.</p><a href="mailto:hello@articial.app?subject=RELAY%20first%20route">Scope the route ${arrow()}</a></article><article class="dark"><span>Expanded operation</span><h3>Multiple sources.<br />Shared model.<br />Visible exceptions.</h3><p>Add channel mappings, schedule control, sync history, and an owner for failed records.</p><a href="mailto:hello@articial.app?subject=RELAY%20expanded%20operation">Map the systems ${arrow()}</a></article><article><span>Governed layer</span><h3>Reliable outputs for finance, warehouse, and BI.</h3><p>Coordinate multiple routes without turning RELAY into another system teams must replace.</p><a href="mailto:hello@articial.app?subject=RELAY%20governed%20layer">Talk through the architecture ${arrow()}</a></article></div>
+      </section>
+
+      <section class="relay-fit section-pad" id="fit"><p class="section-label">Built for</p><h2>${site.fit}</h2><a class="relay-button orange" href="mailto:hello@articial.app?subject=RELAY%20workflow%20fit">Talk through your data flow ${arrow()}</a></section>
+    </main>`;
+}
+
 function spanPage() {
   const capabilities = site.capabilities.map(([title, text], index) => `<article><span>0${index + 1}</span><h3>${title}</h3><p>${text}</p></article>`).join("");
   return `
@@ -703,7 +768,7 @@ function productPage() {
 
 document.title = `${site.name} — ${site.title}`;
 document.querySelector('meta[name="description"]').content = site.description;
-document.getElementById("app").innerHTML = `${nav()}${siteKey === "articial" ? articialPage() : siteKey === "utuh" ? utuhPage() : siteKey === "patch" ? patchPage() : siteKey === "rove" ? rovePage() : siteKey === "proof" ? proofPage() : siteKey === "nett" ? nettPage() : siteKey === "intake" ? intakePage() : siteKey === "span" ? spanPage() : productPage()}${footer()}`;
+document.getElementById("app").innerHTML = `${nav()}${siteKey === "articial" ? articialPage() : siteKey === "utuh" ? utuhPage() : siteKey === "patch" ? patchPage() : siteKey === "rove" ? rovePage() : siteKey === "proof" ? proofPage() : siteKey === "nett" ? nettPage() : siteKey === "intake" ? intakePage() : siteKey === "relay" ? relayPage() : siteKey === "span" ? spanPage() : productPage()}${footer()}`;
 
 const header = document.querySelector(".site-header");
 const menuButton = document.querySelector(".menu-toggle");
